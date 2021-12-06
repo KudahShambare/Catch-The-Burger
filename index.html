@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Catch The Burger</title>
+</head>
+<body ID="body">
+    <div id="startAndStop">
+        <button id="start"   >Start Game</button>
+        <button id="stop">Stop Game</button>
+        <span id="soundMode">  &#128264;</span>
+        <span id="muteMode"> &#x1F507;</span>
+    </div>
+    <div id="time">
+        <h1 id="timeDisplay">
+            Time in seconds left: 60
+        </h1>
+    </div>
+    <div id="scores">
+        <h1 id="scoreDisplay">Score:0</h1>
+    </div>
+    <div id="images">
+        <img src="/Bob.jpeg" id="bob" alt="Bob">
+        <img src="/Burger.jpeg" alt="Burger" id="burger">
+    </div>
+    <div id="canvasContainer">
+       
+        <canvas id="canvas" width="280" height="300">
+        </canvas>
+    </div>
+    <div id="buttons">
+        <div id="topButton">
+            <button id="top">Top</button>
+
+        </div>
+        <div id="sideButtons">
+            <button id="leftButton">Left</button>
+            <button id="rightButton">Right</button>
+        </div>
+        <div id="bottomButtons">
+            <button id="bottomButton">Bottom</button>
+        </div>
+    </div>
+    <div id="audio">
+        <audio  src="/Sky Eve  -  Africa (Official Video).mp3" id="theme"></audio>
+        <audio  src="/Enemy Lines Riddim-(Version Instrumental).mp3" id="gameSound"></audio>
+       <audio src="/Wall Crash.mp4" id="wallCollision"></audio>
+        <audio src="/Eats burger sounds effect cartoon.mp3" id="sound"></audio>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
