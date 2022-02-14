@@ -7,34 +7,41 @@ let rightKey = document.getElementById("rightButton");
 let scoreValue = 0;
 let time = 60;
 let scoreDisplay = document.getElementById("scoreDisplay");
+//theme song
 let themeSong = document.getElementById("theme");
 themeSong.volume = 0.3;
+//play sound 
 let soundMode = document.getElementById("soundMode");
 soundMode.addEventListener("click", () => {
   themeSong.play();
 });
+//switch off sound
 let muteMode = document.getElementById("muteMode");
 muteMode.addEventListener("click", () => {
   themeSong.pause();
 });
-
+//game play function
 function playGame() {
   themeSong.pause();
   let gameSound = document.getElementById("gameSound");
   gameSound.volume = 0.1;
   gameSound.play();
+  //decrement time after every second
   let timeDisplay = document.getElementById("timeDisplay");
   setInterval(() => {
     time--;
+    //end the game when time is over
     if (time <= 0) {
       stopGame();
       return;
     }
     timeDisplay.innerHTML = "Time left in seconds: " + time;
   }, 1000);
+  //change burger position after every 4 seconds
   setInterval(burgerChangePosition, 4000);
   drawBurger();
   drawBob();
+  //buttons behavoiur
   upKey.addEventListener("click", () => {
     clearCanvas();
     yPosition -= 20;
@@ -56,17 +63,18 @@ function playGame() {
     movements();
   });
 }
-
+//canvas dimensions
 let yPosition = 140;
 let xPosition = 0;
 let yBurger = canvas.height - 20;
 let xBurger = canvas.width - 20;
-
+//create burger character
 function drawBurger() {
   let burger = document.getElementById("burger");
 
   context.drawImage(burger, xBurger, yBurger, 20, 20);
 }
+//create Bob character
 function drawBob() {
   let bob = document.getElementById("bob");
   context.drawImage(bob, xPosition, yPosition, 20, 20);
@@ -97,6 +105,7 @@ function characterCollision() {
     burgerChangePosition();
   }
 }
+//hit the wall behviour
 function wallCollision() {
   if (
     xPosition < 0 ||
