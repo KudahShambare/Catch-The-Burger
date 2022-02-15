@@ -8,25 +8,25 @@ let scoreValue = 0;
 let time = 60;
 let scoreDisplay = document.getElementById("scoreDisplay");
 //put all songs in an array.
-let songs=["/Game Music/Andy Muridzo-Nhekwe (official video)NAXO films 2020.mp3",
-"Game Music/Oliver Mtukudzi - Mutserendende.mp3",
-"Game Music/Nelly - Dilemma (Official Music Video) ft. Kelly Rowland.mp3",
-"Game Music/Zimbabwe Police Band - Dambura Makomo.mp3",
-"Game Music/Rihanna - Umbrella (Orange Version) (Official Music Video) ft. JAY-Z.mp3",
-"Game Music/2._nomcebo_zikode_ft_master_kg_xola_moya_wami_mp3_78924.mp3",
-"Game Music/p-square_taste_money_testimony_mp3_78981.mp3",
-"Game Music/roki_patati_patata_feat_koffi_olomide_rayvanny_official_video_mp3_79011.mp3",
-"Game Music/the_script_hall_of_fame_ft._will.i.am_mp3_79044.mp3",
-
+let songs = [
+  "/Game Music/Andy Muridzo-Nhekwe (official video)NAXO films 2020.mp3",
+  "Game Music/Oliver Mtukudzi - Mutserendende.mp3",
+  "Game Music/Nelly - Dilemma (Official Music Video) ft. Kelly Rowland.mp3",
+  "Game Music/Zimbabwe Police Band - Dambura Makomo.mp3",
+  "Game Music/Rihanna - Umbrella (Orange Version) (Official Music Video) ft. JAY-Z.mp3",
+  "Game Music/2._nomcebo_zikode_ft_master_kg_xola_moya_wami_mp3_78924.mp3",
+  "Game Music/p-square_taste_money_testimony_mp3_78981.mp3",
+  "Game Music/roki_patati_patata_feat_koffi_olomide_rayvanny_official_video_mp3_79011.mp3",
+  "Game Music/the_script_hall_of_fame_ft._will.i.am_mp3_79044.mp3",
 ];
 
 //theme song
 let themeSong = document.getElementById("theme");
 //select a random theme song
-themeSong.src=songs[Math.floor(Math.random() * songs.length)];
+themeSong.src = songs[Math.floor(Math.random() * songs.length)];
 themeSong.volume = 0.3;
-themeSong.loop=true;
-//play sound 
+themeSong.loop = true;
+//play sound
 let soundMode = document.getElementById("soundMode");
 soundMode.addEventListener("click", () => {
   themeSong.play();
@@ -40,9 +40,9 @@ muteMode.addEventListener("click", () => {
 function playGame() {
   themeSong.pause();
   let gameSound = document.getElementById("gameSound");
-  gameSound.src=songs[Math.floor(Math.random() * songs.length)];
+  gameSound.src = songs[Math.floor(Math.random() * songs.length)];
   gameSound.volume = 0.3;
-  gameSound.loop=true;
+  gameSound.loop = true;
   gameSound.play();
   //decrement time after every second
   let timeDisplay = document.getElementById("timeDisplay");
@@ -51,7 +51,7 @@ function playGame() {
     //end the game when time is over
     if (time <= 0) {
       stopGame();
-      return;
+      window.reload();
     }
     timeDisplay.innerHTML = "Time left in seconds: " + time;
   }, 1000);
@@ -157,9 +157,11 @@ stop.addEventListener("click", () => {
 });
 
 function stopGame() {
-  alert("Gamen Over \n Score: " + scoreValue);
+
+ // alert("Gamen Over \n Score: " + scoreValue);
   location.reload();
-  return;
+
+  //return;
 }
 
 function playCharacterCollisionAudio() {
