@@ -53,6 +53,11 @@ function playGame() {
       stopGame();
       window.reload();
     }
+    //end game when score is negative
+    if (scoreValue < 0) {
+      stopGame();
+      window.reload();
+    }
     timeDisplay.innerHTML = "Time left in seconds: " + time;
   }, 1000);
   //change burger position after every 4 seconds
