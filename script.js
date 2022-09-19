@@ -16,7 +16,6 @@ let songs = [
   "Game Music/Rihanna - Umbrella (Orange Version) (Official Music Video) ft. JAY-Z.mp3",
   "Game Music/2._nomcebo_zikode_ft_master_kg_xola_moya_wami_mp3_78924.mp3",
   "Game Music/p-square_taste_money_testimony_mp3_78981.mp3",
-  "Game Music/roki_patati_patata_feat_koffi_olomide_rayvanny_official_video_mp3_79011.mp3",
   "Game Music/the_script_hall_of_fame_ft._will.i.am_mp3_79044.mp3",
 ];
 
