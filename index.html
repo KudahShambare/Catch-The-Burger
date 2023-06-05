@@ -2,30 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Catch The Burger</title>
 </head>
-<body ID="body">
-    <a href="howto.html"> <h3>How to play the game</h3></a>
-    <div id="startAndStop">
+<body id="body">
+
+       <aside>
+         <a href="howto.html"> <h3>How to play the game</h3></a>
+   
+          <div id="startAndStop">
         <button id="start"   >Start Game</button>
         <button id="stop">Stop Game</button>
         <span id="soundMode">  &#128264;</span>
         <span id="muteMode"> &#x1F507;</span>
     </div>
-    <div id="time">
+    </aside>
+  
+  <main>
+    <section id="boards">
+         <div id="time">
         <h1 id="timeDisplay">
-            Time in seconds left: 60
+            <span id="clock"> My time: 60s</span>
         </h1>
     </div>
     <div id="scores">
         <h1 id="scoreDisplay">Score:0</h1>
     </div>
+    </section>
+   
     <div id="images">
-        <img src="/Bob.jpeg" id="bob" alt="Bob">
-        <img src="/Burger.jpeg" alt="Burger" id="burger">
+        <img src="./Bob.jpeg" id="bob" alt="Bob">
+        <img src="./Burger.jpeg" alt="Burger" id="burger">
     </div>
     <div id="canvasContainer">
        
@@ -34,23 +42,25 @@
     </div>
     <div id="buttons">
         <div id="topButton">
-            <button id="top">Top</button>
+            <button id="top" class="controls">Up</button>
 
         </div>
         <div id="sideButtons">
-            <button id="leftButton">Left</button>
-            <button id="rightButton">Right</button>
+            <button id="leftButton" class="controls">Left</button>
+            <button id="rightButton" class="controls">Right</button>
         </div>
         <div id="bottomButtons">
-            <button id="bottomButton">Bottom</button>
+            <button id="bottomButton" class="controls">Down</button>
         </div>
     </div>
     <div id="audio">
         <audio  id="theme" ></audio>
         <audio   id="gameSound"></audio>
-       <audio src="/Wall Crash.mp4" id="wallCollision"></audio>
-        <audio src="/Eats burger sounds effect cartoon.mp3" id="sound"></audio>
+       <audio src="./Wall Crash.mp4" id="wallCollision"></audio>
+        <audio src="./Eats burger sounds effect cartoon.mp3" id="sound"></audio>
     </div>
+
+</main>
     <script src="script.js"></script>
 </body>
 </html>

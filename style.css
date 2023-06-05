@@ -2,20 +2,40 @@ body{
     display:flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(191, 226, 194);
+    background-color: #ffec51;
+}
+a{
+    color: red;
+}
+a:visited{
+    color: red;
+}
+/*Clock*/
+#clock ,#scores{
+    background-color: black;
+    border: solid 2px;
+    width: 10vw;
+    color: #ff0000;
+    
 }
 canvas{
   
-    border: 1rem solid rgb(81, 94, 76);
+    border: 1rem solid #fec601;
+    background-color:#fffbdb;
    
    /* margin-left: 17.5%;*/
 }
 #buttons{
     text-align: center;
 }
-button{
-    width: 15vw;
-    height:8vh;
+.controls{
+    width: 55px;
+    height:55px;
+    background-color: #ffec51;
+    border: solid #fec601;
+    color: red;
+    font-weight: bolder;
+    border-radius: 50%;
 }
 #images{
     display: none;
@@ -34,6 +54,18 @@ button{
 .icons>a{
     text-decoration: none;
     color: black;
+}
+/**************************************************************************************************************/
+@media screen and (min-width:500PX){
+    body{
+        display: grid;
+        grid-template-columns: 30% 70%;
+    }
+    #boards{
+        position: fixed;
+        top: 0;
+        right: 20px;
+    }
 }
 @media  screen and (min-width:700px) {
     button{

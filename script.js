@@ -7,34 +7,76 @@ let rightKey = document.getElementById("rightButton");
 let scoreValue = 0;
 let time = 60;
 let scoreDisplay = document.getElementById("scoreDisplay");
+
+
+//canvas dimensions
+let yPosition = 140;
+let xPosition = 0;
+let yBurger = canvas.height - 20;
+let xBurger = canvas.width - 20;
+
+
 //put all songs in an array.
 let songs = [
   "/Game Music/Andy Muridzo-Nhekwe (official video)NAXO films 2020.mp3",
   "Game Music/Oliver Mtukudzi - Mutserendende.mp3",
   "Game Music/Nelly - Dilemma (Official Music Video) ft. Kelly Rowland.mp3",
-  "Game Music/Zimbabwe Police Band - Dambura Makomo.mp3",
   "Game Music/Rihanna - Umbrella (Orange Version) (Official Music Video) ft. JAY-Z.mp3",
   "Game Music/2._nomcebo_zikode_ft_master_kg_xola_moya_wami_mp3_78924.mp3",
   "Game Music/p-square_taste_money_testimony_mp3_78981.mp3",
-  "Game Music/the_script_hall_of_fame_ft._will.i.am_mp3_79044.mp3",
+  "Game Music/the_script_hall_of_fame_ft._will.i.am_mp3_79044.mp3"
 ];
 
 //theme song
 let themeSong = document.getElementById("theme");
+
 //select a random theme song
 themeSong.src = songs[Math.floor(Math.random() * songs.length)];
 themeSong.volume = 0.3;
 themeSong.loop = true;
+
 //play sound
 let soundMode = document.getElementById("soundMode");
 soundMode.addEventListener("click", () => {
   themeSong.play();
 });
+
 //switch off sound
 let muteMode = document.getElementById("muteMode");
 muteMode.addEventListener("click", () => {
   themeSong.pause();
 });
+
+
+//Bob Movement
+
+const moveLeft = ()=>{
+   clearCanvas();
+    xPosition -= 20;
+    movements();
+}
+
+const moveRight = ()=>{
+   clearCanvas();
+    xPosition += 20;
+    movements();
+}
+
+const moveTop = ()=>{
+  clearCanvas();
+    yPosition -= 20;
+    movements();
+}
+
+const moveDown = ()=>{
+    clearCanvas();
+    yPosition += 20;
+    movements();
+}
+
+
+
+
 //game play function
 function playGame() {
   themeSong.pause();
@@ -43,8 +85,9 @@ function playGame() {
   gameSound.volume = 0.3;
   gameSound.loop = true;
   gameSound.play();
+
   //decrement time after every second
-  let timeDisplay = document.getElementById("timeDisplay");
+  let clock = document.getElementById("clock");
   setInterval(() => {
     time--;
     //end the game when time is over
@@ -57,39 +100,22 @@ function playGame() {
       stopGame();
       window.reload();
     }
-    timeDisplay.innerHTML = "Time left in seconds: " + time;
+    clock.innerHTML = "My time: "+ time+"s";
   }, 1000);
+
   //change burger position after every 4 seconds
   setInterval(burgerChangePosition, 4000);
   drawBurger();
   drawBob();
+
+
   //buttons behavoiur
-  upKey.addEventListener("click", () => {
-    clearCanvas();
-    yPosition -= 20;
-    movements();
-  });
-  downKey.addEventListener("click", () => {
-    clearCanvas();
-    yPosition += 20;
-    movements();
-  });
-  leftKey.addEventListener("click", () => {
-    clearCanvas();
-    xPosition -= 20;
-    movements();
-  });
-  rightKey.addEventListener("click", () => {
-    clearCanvas();
-    xPosition += 20;
-    movements();
-  });
+  upKey.addEventListener("click", moveTop);
+  downKey.addEventListener("click", moveDown);
+  leftKey.addEventListener("click", moveLeft);
+  rightKey.addEventListener("click", moveRight);
+
 }
-//canvas dimensions
-let yPosition = 140;
-let xPosition = 0;
-let yBurger = canvas.height - 20;
-let xBurger = canvas.width - 20;
 //create burger character
 function drawBurger() {
   let burger = document.getElementById("burger");
@@ -103,7 +129,6 @@ function drawBob() {
 }
 
 /*Button Click Behaviour*/
-
 function movements() {
   if (scoreValue < 0 || time < 0) {
     stopGame();
@@ -165,7 +190,6 @@ function stopGame() {
  // alert("Gamen Over \n Score: " + scoreValue);
   location.reload();
 
-  //return;
 }
 
 function playCharacterCollisionAudio() {
@@ -177,3 +201,21 @@ function playWallCollisionAudio() {
   let collisionSound = document.getElementById("wallCollision");
   collisionSound.play();
 }
+
+
+//keyboard events
+
+window.addEventListener("keydown",(e)=>{
+    if(e.which == 37){
+   moveLeft();
+}
+  if(e.which == 38){
+    moveTop();
+    
+  }if(e.which == 39){
+    moveRight();
+  }if(e.which == 40){
+    moveDown();
+  }
+
+})
