@@ -14,19 +14,27 @@ a:visited{
 #clock ,#scores{
     background-color: black;
     border: solid 2px;
-    width: 10vw;
+    width: 50vw;
     color: #ff0000;
+    padding:  2%;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
     
 }
 canvas{
   
     border: 1rem solid #fec601;
     background-color:#fffbdb;
+    margin-top: 2%;
    
    /* margin-left: 17.5%;*/
 }
+/*Buttons*/
 #buttons{
     text-align: center;
+    background-color: black;
 }
 .controls{
     width: 55px;
@@ -49,14 +57,13 @@ canvas{
     display:grid;
     grid-template-columns: auto;
     gap: 5vh;
-    background-color: aliceblue;
 }
 .icons>a{
     text-decoration: none;
     color: black;
 }
 /**************************************************************************************************************/
-@media screen and (min-width:500PX){
+@media screen and (min-width:500px){
     body{
         display: grid;
         grid-template-columns: 30% 70%;
