@@ -61,6 +61,17 @@ themeSong.src = songs[Math.floor(Math.random() * songs.length)];
 themeSong.volume = 0.3;
 themeSong.loop = true;
 
+//change song after 3 minutes
+
+const changeSong = (sound) => {
+  sound.addEventListener('ended', () => {
+    sound.src = songs[Math.floor(Math.random() * songs.length)];
+    console.log("changed");
+    sound.play();
+  });
+};
+
+
 //play sound
 let soundMode = document.getElementById("soundMode");
 soundMode.addEventListener("click", () => {
@@ -109,8 +120,9 @@ function playGame() {
     let gameSound = document.getElementById("gameSound");
     gameSound.src = songs[Math.floor(Math.random() * songs.length)];
     gameSound.volume = 0.3;
-    gameSound.loop = true;
     gameSound.play();
+      changeSong(gameSound);
+
 
     //decrement time after every second
     let clock = document.getElementById("clock");
