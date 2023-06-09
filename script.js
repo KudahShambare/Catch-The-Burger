@@ -1,12 +1,27 @@
+/*HTML Elements*/
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
-let upKey = document.getElementById("topButton");
-let downKey = document.getElementById("bottomButton");
-let leftKey = document.getElementById("leftButton");
-let rightKey = document.getElementById("rightButton");
+const upKey = document.getElementById("topButton");
+const downKey = document.getElementById("bottomButton");
+const leftKey = document.getElementById("leftButton");
+const rightKey = document.getElementById("rightButton");
+const stop = document.getElementById("stop");
+const scoreDisplay = document.getElementById("scoreDisplay");
+const themeSong = document.getElementById("theme");
+const gameSound = document.getElementById("gameSound");
+const clock = document.getElementById("clock");
+const soundMode = document.getElementById("soundMode");
+const muteMode = document.getElementById("muteMode");
+const burger = document.getElementById("burger");
+const bob = document.getElementById("bob");
+const eatSound = document.getElementById("eat-sound");
+const collisionSound = document.getElementById("wallCollision");
+
+
+/*Initial Values*/
 let scoreValue = 0;
 let time = 60;
-let scoreDisplay = document.getElementById("scoreDisplay");
+let userName = "NoName";
 
 
 //canvas dimensions
@@ -53,33 +68,30 @@ let songs = [
 
 ];
 
-//theme song
-let themeSong = document.getElementById("theme");
+//change song when it ends
+const changeSong = (sound) => {
+    sound.addEventListener('ended', () => {
+        sound.src = songs[Math.floor(Math.random() * songs.length)];
+        console.log("changed");
+        sound.play();
+    });
+};
+
+
 
 //select a random theme song
 themeSong.src = songs[Math.floor(Math.random() * songs.length)];
 themeSong.volume = 0.3;
-themeSong.loop = true;
+changeSong(themeSong);
 
-//change song after 3 minutes
-
-const changeSong = (sound) => {
-  sound.addEventListener('ended', () => {
-    sound.src = songs[Math.floor(Math.random() * songs.length)];
-    console.log("changed");
-    sound.play();
-  });
-};
 
 
 //play sound
-let soundMode = document.getElementById("soundMode");
 soundMode.addEventListener("click", () => {
     themeSong.play();
 });
 
 //switch off sound
-let muteMode = document.getElementById("muteMode");
 muteMode.addEventListener("click", () => {
     themeSong.pause();
 });
@@ -115,59 +127,62 @@ const moveDown = () => {
 
 
 //game play function
-function playGame() {
-    themeSong.pause();
-    let gameSound = document.getElementById("gameSound");
-    gameSound.src = songs[Math.floor(Math.random() * songs.length)];
-    gameSound.volume = 0.3;
-    gameSound.play();
-      changeSong(gameSound);
+const playGame = () => {
+        themeSong.pause();
+        gameSound.src = songs[Math.floor(Math.random() * songs.length)];
+        gameSound.volume = 0.3;
+        gameSound.play();
+        changeSong(gameSound);
 
 
-    //decrement time after every second
-    let clock = document.getElementById("clock");
-    setInterval(() => {
-        time--;
-        //end the game when time is over
-        if (time <= 0) {
-            stopGame();
-            window.reload();
+        //decrement time after every second
+        setInterval(() => {
+            time--;
+            //end the game when time is over
+            if (time <= 0) {
+                stopGame();
+                // window.reload();
+            }
+            //end game when score is negative
+            if (scoreValue < 0) {
+                stopGame();
+                // window.reload();
+            }
+            clock.innerHTML = "My time: " + time + "s";
+        }, 1000);
+
+        let timeToChangeBurgerPosition = 4000;
+
+        //make game harder if the player has more points or more time
+        if (time > 100 || scoreValue > 100) {
+            timeToChangeBurgerPosition = 3000;
         }
-        //end game when score is negative
-        if (scoreValue < 0) {
-            stopGame();
-            window.reload();
-        }
-        clock.innerHTML = "My time: " + time + "s";
-    }, 1000);
 
-    //change burger position after every 4 seconds
-    setInterval(burgerChangePosition, 4000);
-    drawBurger();
-    drawBob();
+        //change burger position after every 4 seconds
+        setInterval(burgerChangePosition, timeToChangeBurgerPosition);
+        drawBurger();
+        drawBob();
 
 
-    //buttons behavoiur
-    upKey.addEventListener("click", moveTop);
-    downKey.addEventListener("click", moveDown);
-    leftKey.addEventListener("click", moveLeft);
-    rightKey.addEventListener("click", moveRight);
+        //buttons behavoiur
+        upKey.addEventListener("click", moveTop);
+        downKey.addEventListener("click", moveDown);
+        leftKey.addEventListener("click", moveLeft);
+        rightKey.addEventListener("click", moveRight);
 
-}
-//create burger character
-function drawBurger() {
-    let burger = document.getElementById("burger");
+    }
+    //create burger character
+const drawBurger = () => {
 
-    context.drawImage(burger, xBurger, yBurger, 20, 20);
-}
-//create Bob character
-function drawBob() {
-    let bob = document.getElementById("bob");
+        context.drawImage(burger, xBurger, yBurger, 20, 20);
+    }
+    //create Bob character
+const drawBob = ()=> {
     context.drawImage(bob, xPosition, yPosition, 20, 20);
 }
 
 /*Button Click Behaviour*/
-function movements() {
+const movements = ()=> {
     if (scoreValue < 0 || time < 0) {
         stopGame();
     }
@@ -177,13 +192,13 @@ function movements() {
     drawBurger();
 }
 
-function clearCanvas() {
+const clearCanvas = ()=> {
     context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
-    drawBurger();
+    //drawBurger();
 }
 
-function characterCollision() {
+const characterCollision = ()=> {
     scoreDisplay.innerHTML = "Score: " + scoreValue;
     if (xPosition == xBurger && yPosition == yBurger) {
         playCharacterCollisionAudio();
@@ -193,7 +208,7 @@ function characterCollision() {
     }
 }
 //hit the wall behviour
-function wallCollision() {
+const wallCollision = ()=> {
     if (
         xPosition < 0 ||
         xPosition > canvas.width - 20 ||
@@ -206,8 +221,9 @@ function wallCollision() {
     }
 }
 
-function burgerChangePosition() {
+const burgerChangePosition = ()=> {
     clearCanvas();
+    drawBurger();
     let values = [
         0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280,
     ];
@@ -219,27 +235,43 @@ function burgerChangePosition() {
 
 const start = document.getElementById("start");
 start.addEventListener("click", () => {
+    userName = prompt("Username:")
     playGame();
 });
-const stop = document.getElementById("stop");
+
+
 stop.addEventListener("click", () => {
     stopGame();
+    return;
 });
 
-function stopGame() {
+const stopGame = () => {
+    //stop music
+    gameSound.pause();
+    //clear canvas
+    clearCanvas();
+    //set time to 0
+    time = 0;
+    console.log(userName,scoreValue);
+    //send score to database
 
-    // alert("Gamen Over \n Score: " + scoreValue);
-    location.reload();
+
+    //view leaderboard
+
+   // location.reload();
+    
+
 
 }
 
-function playCharacterCollisionAudio() {
-    let sound = document.getElementById("sound");
-    sound.play();
+/*Play the sound when bob eats the burger*/
+
+const playCharacterCollisionAudio = () => {
+    eatSound.play();
 }
 
-function playWallCollisionAudio() {
-    let collisionSound = document.getElementById("wallCollision");
+/*Play the sound when bob hits the wall*/
+const playWallCollisionAudio = () => {
     collisionSound.play();
 }
 
