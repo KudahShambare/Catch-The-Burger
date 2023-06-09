@@ -16,7 +16,8 @@ const burger = document.getElementById("burger");
 const bob = document.getElementById("bob");
 const eatSound = document.getElementById("eat-sound");
 const collisionSound = document.getElementById("wallCollision");
-
+const start = document.getElementById("start");
+const main = document.getElementById("game-page");
 
 /*Initial Values*/
 let scoreValue = 0;
@@ -72,7 +73,6 @@ let songs = [
 const changeSong = (sound) => {
     sound.addEventListener('ended', () => {
         sound.src = songs[Math.floor(Math.random() * songs.length)];
-        console.log("changed");
         sound.play();
     });
 };
@@ -124,8 +124,7 @@ const moveDown = () => {
 }
 
 
-
-
+/*********************************************************************************************************/
 //game play function
 const playGame = () => {
         themeSong.pause();
@@ -139,14 +138,14 @@ const playGame = () => {
         setInterval(() => {
             time--;
             //end the game when time is over
-            if (time <= 0) {
+            if (time < 0) {
                 stopGame();
-                // window.reload();
+              
             }
             //end game when score is negative
             if (scoreValue < 0) {
                 stopGame();
-                // window.reload();
+
             }
             clock.innerHTML = "My time: " + time + "s";
         }, 1000);
@@ -170,7 +169,30 @@ const playGame = () => {
         leftKey.addEventListener("click", moveLeft);
         rightKey.addEventListener("click", moveRight);
 
+
+        //keyboard events
+
+window.addEventListener("keydown", (e) => {
+    if (e.which == 37) {
+        moveLeft();
     }
+    if (e.which == 38) {
+        moveTop();
+
+    }
+    if (e.which == 39) {
+        moveRight();
+    }
+    if (e.which == 40) {
+        moveDown();
+    }
+
+})
+
+    }
+/****************************************************************************************************/
+
+
     //create burger character
 const drawBurger = () => {
 
@@ -183,7 +205,7 @@ const drawBob = ()=> {
 
 /*Button Click Behaviour*/
 const movements = ()=> {
-    if (scoreValue < 0 || time < 0) {
+    if (scoreValue <= 0 || time <= 0) {
         stopGame();
     }
     characterCollision();
@@ -195,7 +217,6 @@ const movements = ()=> {
 const clearCanvas = ()=> {
     context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
-    //drawBurger();
 }
 
 const characterCollision = ()=> {
@@ -233,16 +254,17 @@ const burgerChangePosition = ()=> {
     drawBob();
 }
 
-const start = document.getElementById("start");
-start.addEventListener("click", () => {
+start.addEventListener("click", (e) => {
+  e.preventDefault();
     userName = prompt("Username:")
     playGame();
 });
 
 
-stop.addEventListener("click", () => {
+stop.addEventListener("click", (e) => {
+  e.preventDefault();
     stopGame();
-    return;
+
 });
 
 const stopGame = () => {
@@ -250,15 +272,16 @@ const stopGame = () => {
     gameSound.pause();
     //clear canvas
     clearCanvas();
-    //set time to 0
-    time = 0;
-    console.log(userName,scoreValue);
+
+    alert("Game Over");
+    window.location("howto.html")
+  
     //send score to database
 
 
     //view leaderboard
-
-   // location.reload();
+  
+      console.log(userName,scoreValue);
     
 
 
@@ -276,21 +299,3 @@ const playWallCollisionAudio = () => {
 }
 
 
-//keyboard events
-
-window.addEventListener("keydown", (e) => {
-    if (e.which == 37) {
-        moveLeft();
-    }
-    if (e.which == 38) {
-        moveTop();
-
-    }
-    if (e.which == 39) {
-        moveRight();
-    }
-    if (e.which == 40) {
-        moveDown();
-    }
-
-})
