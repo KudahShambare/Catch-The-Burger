@@ -77,8 +77,15 @@ canvas{
     
 /*Leaderboard*/
 
+#list{
+    background-color: rgb(255,255,255,0.9);
+    color: green;
+    font-weight: bolder;
+    font-size: large;
+}
+
 .my-score{
-    background-color: white;
+    color: red;
 }
 
 /**************************************************************************************************************/
