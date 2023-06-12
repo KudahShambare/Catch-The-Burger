@@ -57,13 +57,11 @@ let songs = [
     "Game Music/malaika_destiny_mp3_490.mp3",
     "Game Music/lil_durk_all_my_life_ft._j._cole_official_video_mp3_85703.mp3",
     "Game Music/admire_kasenga_ngosimbi_crew_pamuchato_wa_tobias_mp3_199.mp3",
-    "Game Music/aniseti_butati_wataulizana_official_video_mp3_135.mp3",
     "Game Music/big_nuz_feat._dj_yamza_ngeke_official_music_video_mp3_86038.mp3",
     "Game Music/bob_marley_jammin_mp3_86382.mp3",
     "Game Music/french_montana_unforgettable_ft._swae_lee_mp3_333.mp3",
     "Game Music/dbn_gogo_x_uncle_waffles_jagermeister_ft._tnk_musiq_mellow_sleazy_mp3_85990.mp3",
     "Game Music/davido_coolest_kid_in_africa_official_video_ft._nasty_c_mp3_686.mp3",
-    "Game Music/boom_box_riddim_version_instrumental_notnice_records_mp3_2002.mp3",
     "Game Music/holy_ten_wakatuka_amai_mp3_1964.mp3",
 
 ];
@@ -154,7 +152,7 @@ const movements = () => {
 }
 
 const clearCanvas = () => {
-    context.fillStyle = "black";
+    context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
