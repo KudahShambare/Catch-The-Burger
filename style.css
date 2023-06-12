@@ -2,32 +2,52 @@ body{
     display:flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffec51;
+    background-image: url("./background.jpeg");
+    background-size: cover;
+
 }
 a{
-    color: red;
+    color: white;
+    font-weight: bolder;
+    background-color: black;
+    font-size: large;
 }
 a:visited{
-    color: red;
+    color: white;
+     font-weight: bolder;
+    background-color: black;
+}
+
+#boards{
+    width: 50%;
+      margin: 0 auto;
 }
 /*Clock*/
 #clock ,#scores{
     background-color: black;
     border: solid 2px;
-    width: 50vw;
-    color: #ff0000;
-    padding:  2%;
-    margin: 0 auto;
-    text-align: center;
+    color: white;
+      text-align: center;
     display: flex;
     justify-content: center;
     
 }
+#startAndStop{
+    margin: 0 auto;
+    text-align: center;
+}
+
+#soundMode , #muteMode{
+    color: white;
+    font-size: 190%;
+
+}
 canvas{
   
-    border: 1rem solid #fec601;
-    background-color:#fffbdb;
-    margin-top: 2%;
+    border: 1rem solid black;
+    background-color:white;
+    margin-top: 10%;
+    margin-bottom: 5%;
    
    /* margin-left: 17.5%;*/
 }
@@ -39,47 +59,73 @@ canvas{
 .controls{
     width: 55px;
     height:55px;
-    background-color: #ffec51;
-    border: solid #fec601;
-    color: red;
+    background-color: white;
+    border: solid black;
+    color: black;
     font-weight: bolder;
     border-radius: 50%;
 }
 #images{
     display: none;
 }
-#comments{
-    color:rgb(149, 17, 236);
-    font-weight: bolder;
+
+
+
+   aside{
+        padding: 3%;
+    }
+    
+/*Leaderboard*/
+
+.my-score{
+    background-color: white;
 }
-.icons{
-    text-align: center;
-    display:grid;
-    grid-template-columns: auto;
-    gap: 5vh;
-}
-.icons>a{
-    text-decoration: none;
-    color: black;
-}
+
 /**************************************************************************************************************/
 @media screen and (min-width:500px){
-    body{
-        display: grid;
-        grid-template-columns: 30% 70%;
+
+    aside{
+        position: absolute;
+        left: 5%;
+        top: 5%;
     }
-    #boards{
+    #body{
+        display: grid;
+    
+        text-align: center;
+        margin: 0 auto;
+    }
+#boards{
         position: fixed;
         top: 0;
-        right: 20px;
+        right: 5px;
+        width: 15%;
+
+    }
+
+
+ 
+    #startAndStop{
+        margin-top: 20%;
+
     }
 }
-@media  screen and (min-width:700px) {
+@media  screen and (min-width:750px) {
     button{
         height:5vh;
     }
-  .icons{
-      display:grid;
-      grid-template-columns: auto auto auto auto;
-  }
+
+    canvas{
+  e;
+    margin-top: 5%;
+    margin-bottom: 2.5%;
+   
+   /* margin-left: 17.5%;*/
+}
+ 
+  #startAndStop{
+        margin-top: 5%;
+
+    }
+
 }

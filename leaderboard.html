@@ -3,6 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" href="style.css">
+
 	<title>LeaderBoard</title>
 </head>
 <body>
@@ -17,17 +19,26 @@
 <script>
 	
 
+let currentUser = localStorage.getItem('name');
+let currentUserScore = localStorage.getItem('score');
+
+
+alert("Players with scores under than 100 do not qualify to be listed on the leaderboard");
 
     //get scoreboard
 
     const list = document.getElementById("list");
 
-    fetch("http://localhost:9000/players").then((resp) => {
+    fetch("https://burger-world.beast-o.com/players").then((resp) => {
         return resp.json();
     }).then((data) => {
          console.log(data)
         data.map((elem) => {
-            let player = document.createElement("li");
+        	            let player = document.createElement("li");
+
+        	if(elem.name == currentUser && elem.score == currentUserScore){
+                     player.setAttribute("class", "my-score");
+        	}
             player.innerHTML = elem.name + " ....." + elem.score;
             list.appendChild(player);
         })

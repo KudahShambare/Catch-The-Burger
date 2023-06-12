@@ -28,13 +28,16 @@ connection.connect((error)=>{
 	}
 })
 
+
+//check if username already exis
+
 //post to leaderboard
 
 app.post("/leaderboard",(req,resp)=>{
 	let name = req.body.name;
 	let score = req.body.score;
 
-	if(score > 100){
+	if(score >= 100){
 			connection.query('insert  into leaderboard (name,score) values (?,?)',[name,score],(error,result)=>{
 		if(error){
 			resp.status(500).send(error);
