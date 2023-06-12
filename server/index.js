@@ -1,11 +1,13 @@
 const express = require("express");
 const mysql = require("mysql");
+const cors = require("cors");
 require('dotenv').config()
 
 const app = express();
 
 //body parser middleware
 app.use(express.json());
+app.use(cors());
 
 
 console.log(process.env.db_host)
@@ -20,7 +22,7 @@ const connection = mysql.createConnection({
 
 connection.connect((error)=>{
 	if(error){
-		console.log("error")
+		console.log(error)
 	}else{
 		console.log("Successs")
 	}
@@ -32,7 +34,8 @@ app.post("/leaderboard",(req,resp)=>{
 	let name = req.body.name;
 	let score = req.body.score;
 
-	connection.query('insert  into leaderboard (name,score) values (?,?)',[name,score],(error,result)=>{
+	if(score > 100){
+			connection.query('insert  into leaderboard (name,score) values (?,?)',[name,score],(error,result)=>{
 		if(error){
 			resp.status(500).send(error);
 		}else{
@@ -40,14 +43,21 @@ app.post("/leaderboard",(req,resp)=>{
 		}
 	})
 
+		}else{
+			resp.send("Player did not qualify to be in the leaderboard");
+		}
+
+
 })
+
 //fetch leaderboard
 app.get("/players",(req,resp)=>{
 
 
-connection.query("select * from leaderboard",(error,result)=>{
+connection.query("select * from leaderboard order by score desc",(error,result)=>{
 	if(error){
-		console.log("Error");
+		console.log(error);
+		resp.send(error)
 	}else{
 		resp.json(result);
 	}
@@ -61,7 +71,7 @@ connection.query("select * from leaderboard",(error,result)=>{
 
 
 
-const PORT =process.env.PORT || 9000;
+const PORT = 9000;
 app.listen(PORT,()=>{
 	console.log("Server Listening To Port: ",PORT);
 })

@@ -18,9 +18,11 @@ const eatSound = document.getElementById("eat-sound");
 const collisionSound = document.getElementById("wallCollision");
 const start = document.getElementById("start");
 const main = document.getElementById("game-page");
+const startAndStop = document.getElementById("startAndStop");
+const list = document.getElementById("list");
 
 /*Initial Values*/
-let scoreValue = 0;
+let scoreValue = 0; //created a bug here # score value must be 0
 let time = 60;
 let userName = "NoName";
 
@@ -77,8 +79,6 @@ const changeSong = (sound) => {
     });
 };
 
-
-
 //select a random theme song
 themeSong.src = songs[Math.floor(Math.random() * songs.length)];
 themeSong.volume = 0.3;
@@ -122,11 +122,148 @@ const moveDown = () => {
     yPosition += 20;
     movements();
 }
+//create burger character
+const drawBurger = () => {
+
+        context.drawImage(burger, xBurger, yBurger, 20, 20);
+    }
+    //create Bob character
+const drawBob = () => {
+    context.drawImage(bob, xPosition, yPosition, 20, 20);
+}
+
+/*Button Click Behaviour*/
+const movements = () => {
+    if (scoreValue <= -10 || time < 0) {
+        stopGame();
+    }
+    characterCollision();
+    wallCollision();
+    drawBob();
+    drawBurger();
+}
+
+const clearCanvas = () => {
+    context.fillStyle = "white";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+const characterCollision = () => {
+        scoreDisplay.innerHTML = "Score: " + scoreValue;
+        if (xPosition == xBurger && yPosition == yBurger) {
+            playCharacterCollisionAudio();
+            scoreValue += 10;
+            time += 10;
+            burgerChangePosition();
+        }
+    }
+    //hit the wall behviour
+const wallCollision = () => {
+    if (
+        xPosition < 0 ||
+        xPosition > canvas.width - 20 ||
+        yPosition < 0 ||
+        yPosition > canvas.height - 20
+    ) {
+        playWallCollisionAudio();
+        scoreValue -= 50;
+        scoreDisplay.innerHTML = "Score: " + scoreValue;
+    }
+}
+
+
+/*Play the sound when bob eats the burger*/
+
+const playCharacterCollisionAudio = () => {
+    eatSound.play();
+}
+
+/*Play the sound when bob hits the wall*/
+const playWallCollisionAudio = () => {
+    collisionSound.play();
+}
+
+/*Burger ChnagePosition*/
+
+const burgerChangePosition = () => {
+    clearCanvas();
+    drawBurger();
+    let values = [
+        0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280,
+    ];
+    xBurger = values[Math.floor(Math.random() * values.length)];
+    yBurger = values[Math.floor(Math.random() * values.length)];
+    drawBurger();
+    drawBob();
+}
+
+/*Start Game Button Behaviour*/
+start.addEventListener("click", (e) => {
+  //  e.preventDefault();
+    userName = prompt("Username:")
+    playGame();
+});
+
+/*Stop Button Behaviour*/
+stop.addEventListener("click", (e) => {
+  //  e.preventDefault();
+    stopGame();
+
+});
+
+
+/**************************************************************************************/
+let hasRun = false;
+const stopGame = () => {
+
+    if(!hasRun){
+  //stop music
+    gameSound.pause();
+    //clear canvas
+    clearCanvas();
+
+      //send score to database if it is greater than 100
+/*
+    if(scoreValue>=100){
+
+    }
+*/
+    fetch("http://localhost:9000/leaderboard", {
+         "method": "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: userName,
+            score: scoreValue
+        })
+    }).then((resp) => {
+        console.log("yes")
+        return resp;
+    }).catch(error=>{
+        console.log(error)
+    })
+hasRun=true;
+
+    location.assign("./leaderboard.html");
+//stopGame();
+
+
+    }
+else{
+    console.log("Ndanzvenga")
+
+}
+  
+ 
+}
+
 
 
 /*********************************************************************************************************/
 //game play function
 const playGame = () => {
+
         themeSong.pause();
         gameSound.src = songs[Math.floor(Math.random() * songs.length)];
         gameSound.volume = 0.3;
@@ -140,7 +277,7 @@ const playGame = () => {
             //end the game when time is over
             if (time < 0) {
                 stopGame();
-              
+
             }
             //end game when score is negative
             if (scoreValue < 0) {
@@ -154,7 +291,7 @@ const playGame = () => {
 
         //make game harder if the player has more points or more time
         if (time > 100 || scoreValue > 100) {
-            timeToChangeBurgerPosition = 3000;
+            timeToChangeBurgerPosition = 1000;
         }
 
         //change burger position after every 4 seconds
@@ -172,130 +309,24 @@ const playGame = () => {
 
         //keyboard events
 
-window.addEventListener("keydown", (e) => {
-    if (e.which == 37) {
-        moveLeft();
-    }
-    if (e.which == 38) {
-        moveTop();
+        window.addEventListener("keydown", (e) => {
+            if (e.which == 37) {
+                moveLeft();
+            }
+            if (e.which == 38) {
+                moveTop();
+
+            }
+            if (e.which == 39) {
+                moveRight();
+            }
+            if (e.which == 40) {
+                moveDown();
+            }
+
+        })
+
+        
 
     }
-    if (e.which == 39) {
-        moveRight();
-    }
-    if (e.which == 40) {
-        moveDown();
-    }
-
-})
-
-    }
-/****************************************************************************************************/
-
-
-    //create burger character
-const drawBurger = () => {
-
-        context.drawImage(burger, xBurger, yBurger, 20, 20);
-    }
-    //create Bob character
-const drawBob = ()=> {
-    context.drawImage(bob, xPosition, yPosition, 20, 20);
-}
-
-/*Button Click Behaviour*/
-const movements = ()=> {
-    if (scoreValue <= 0 || time <= 0) {
-        stopGame();
-    }
-    characterCollision();
-    wallCollision();
-    drawBob();
-    drawBurger();
-}
-
-const clearCanvas = ()=> {
-    context.fillStyle = "white";
-    context.fillRect(0, 0, canvas.width, canvas.height);
-}
-
-const characterCollision = ()=> {
-    scoreDisplay.innerHTML = "Score: " + scoreValue;
-    if (xPosition == xBurger && yPosition == yBurger) {
-        playCharacterCollisionAudio();
-        scoreValue += 10;
-        time += 10;
-        burgerChangePosition();
-    }
-}
-//hit the wall behviour
-const wallCollision = ()=> {
-    if (
-        xPosition < 0 ||
-        xPosition > canvas.width - 20 ||
-        yPosition < 0 ||
-        yPosition > canvas.height - 20
-    ) {
-        playWallCollisionAudio();
-        scoreValue -= 50;
-        scoreDisplay.innerHTML = "Score: " + scoreValue;
-    }
-}
-
-const burgerChangePosition = ()=> {
-    clearCanvas();
-    drawBurger();
-    let values = [
-        0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280,
-    ];
-    xBurger = values[Math.floor(Math.random() * values.length)];
-    yBurger = values[Math.floor(Math.random() * values.length)];
-    drawBurger();
-    drawBob();
-}
-
-start.addEventListener("click", (e) => {
-  e.preventDefault();
-    userName = prompt("Username:")
-    playGame();
-});
-
-
-stop.addEventListener("click", (e) => {
-  e.preventDefault();
-    stopGame();
-
-});
-
-const stopGame = () => {
-    //stop music
-    gameSound.pause();
-    //clear canvas
-    clearCanvas();
-
-    alert("Game Over");
-    window.location("howto.html")
-  
-    //send score to database
-
-
-    //view leaderboard
-  
-      console.log(userName,scoreValue);
-    
-
-
-}
-
-/*Play the sound when bob eats the burger*/
-
-const playCharacterCollisionAudio = () => {
-    eatSound.play();
-}
-
-/*Play the sound when bob hits the wall*/
-const playWallCollisionAudio = () => {
-    collisionSound.play();
-}
-
-
+    /****************************************************************************************************/

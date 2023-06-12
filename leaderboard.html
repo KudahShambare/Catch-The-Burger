@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>LeaderBoard</title>
+</head>
+<body>
+
+	<h1> Leaderboard </h1>
+
+<ol id="list">
+	
+
+</ol>
+
+<script>
+	
+
+
+    //get scoreboard
+
+    const list = document.getElementById("list");
+
+    fetch("http://localhost:9000/players").then((resp) => {
+        return resp.json();
+    }).then((data) => {
+         console.log(data)
+        data.map((elem) => {
+            let player = document.createElement("li");
+            player.innerHTML = elem.name + " ....." + elem.score;
+            list.appendChild(player);
+        })
+
+
+
+
+    }).catch(error=>{
+        console.log(error)
+    })
+
+  
+
+
+
+</script>
+</body>
+</html>
