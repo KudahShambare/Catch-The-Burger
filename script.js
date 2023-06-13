@@ -10,6 +10,7 @@ const scoreDisplay = document.getElementById("scoreDisplay");
 const themeSong = document.getElementById("theme");
 const gameSound = document.getElementById("gameSound");
 const clock = document.getElementById("clock");
+const score = document.getElementById("scores");
 const soundMode = document.getElementById("soundMode");
 const muteMode = document.getElementById("muteMode");
 const burger = document.getElementById("burger");
@@ -157,7 +158,7 @@ const clearCanvas = () => {
 }
 
 const characterCollision = () => {
-        scoreDisplay.innerHTML = "Score: " + scoreValue;
+        score.innerHTML = "Score: " + scoreValue;
         if (xPosition == xBurger && yPosition == yBurger) {
             playCharacterCollisionAudio();
             scoreValue += 10;
@@ -175,7 +176,7 @@ const wallCollision = () => {
     ) {
         playWallCollisionAudio();
         scoreValue -= 50;
-        scoreDisplay.innerHTML = "Score: " + scoreValue;
+        score.innerHTML = "Score: " + scoreValue;
     }
 }
 
@@ -315,7 +316,7 @@ if(time > 200){
             }
 
 
-            clock.innerHTML = "My time: " + time + "s";
+            clock.innerHTML = "Time: " + time + "s";
         }, 1000);
 
 

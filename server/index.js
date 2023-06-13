@@ -28,7 +28,7 @@ connection.connect((error)=>{
 	}
 })
 
-
+connection.query("truncate leaderboard")
 //check if username already exis
 
 //post to leaderboard
