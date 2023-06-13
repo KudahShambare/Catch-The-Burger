@@ -95,6 +95,8 @@ window.onload= ()=>{
 }
 */
 //play sound
+
+/*
 soundMode.addEventListener("click", () => {
     themeSong.play();
 });
@@ -104,7 +106,7 @@ muteMode.addEventListener("click", () => {
     themeSong.pause();
 
 });
-
+*/
 
 //Bob Movement
 
@@ -323,7 +325,6 @@ if(time > 200){
 
         //change burger position after every 4 seconds
         setInterval(burgerChangePosition, timeToChangeBurgerPosition);
-        console.log(timeToChangeBurgerPosition)
         drawBurger();
         drawBob();
 

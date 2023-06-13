@@ -84,11 +84,13 @@ canvas{
     
 /*Leaderboard*/
 
-#list{
+#list, ul{
     background-color: rgb(255,255,255,0.9);
     color: green;
     font-weight: bolder;
     font-size: large;
+    padding-top: 4%;
+    padding-bottom: 4%;
 }
 
 .my-score{
