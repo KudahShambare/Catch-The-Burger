@@ -238,7 +238,7 @@ const stopGame = () => {
     
 */
  /*Save userdata into a cookie*/
-    if(userName== "" || null){
+    if(userName== "" || userName == null){
         userName = "Stranger101"
     }
 

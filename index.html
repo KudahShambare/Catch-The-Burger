@@ -8,6 +8,21 @@
        <link rel="icon" type="image/jpeg" href="./Burger.jpeg">
     <title>Daggie</title>
 
+      <!-- Add the following script tag to register the service worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js')
+          .then(function(registration) {
+            console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch(function(error) {
+            console.error('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
+
 
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
