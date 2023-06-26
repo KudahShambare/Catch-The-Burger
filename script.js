@@ -238,6 +238,9 @@ const stopGame = () => {
     
 */
  /*Save userdata into a cookie*/
+    if(userName== "" || null){
+        userName = "Stranger101"
+    }
 
     localStorage.setItem("name",userName);
     localStorage.setItem("score",scoreValue);
@@ -313,7 +316,7 @@ if(time > 200){
             }
             //end game when score is negative
             if (scoreValue < 0) {
-                stopGame();
+                time=0;
 
             }
 

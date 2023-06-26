@@ -1,0 +1,23 @@
+{
+  "name": "Daggie",
+  "description": "A canvas based maze chase game",
+  "version": "1.0.0",
+  "author": "Kuda Shambare",
+  "homepage_url": "/",
+  "icons": [
+    {
+      "src": "./Burger.jpeg",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "theme_color": "#00b4d8",
+  "background_color": "#00b4d8",
+  "permissions": [
+    "geolocation",
+    "notifications"
+  ],
+  "manifest_version": 2
+}
